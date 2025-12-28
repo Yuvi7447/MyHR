@@ -40,7 +40,7 @@ function FilterBarComponent({
         <Text style={styles.searchIcon}>🔍</Text>
         <TextInput
           style={styles.searchInput}
-          placeholder="Search by ID..."
+          placeholder="Search by month, year, company, or ID..."
           placeholderTextColor={colors.textTertiary}
           value={searchQuery}
           onChangeText={onSearchChange}
@@ -48,7 +48,7 @@ function FilterBarComponent({
           autoCorrect={false}
           clearButtonMode="while-editing"
           accessibilityLabel="Search payslips"
-          accessibilityHint="Enter text to filter payslips by ID"
+          accessibilityHint="Search by month name, year, company name, employee ID, or payslip ID"
         />
         {searchQuery.length > 0 && (
           <Pressable

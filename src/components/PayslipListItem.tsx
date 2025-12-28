@@ -41,15 +41,17 @@ function PayslipListItemComponent({
       accessibilityHint="Double tap to view payslip details">
       <View style={styles.content}>
         <View style={styles.iconContainer}>
-          <Text style={styles.icon}>📄</Text>
+          <Text style={styles.icon}>
+            {payslip.file.type.toUpperCase() === 'PDF' ? '📄' : '🖼️'}
+          </Text>
         </View>
 
         <View style={styles.textContainer}>
+        <Text style={styles.fileName} numberOfLines={2}>
+            {payslip.file.name}
+          </Text>
           <Text style={styles.dateRange} numberOfLines={1}>
             {dateRange}
-          </Text>
-          <Text style={styles.payslipId} numberOfLines={1}>
-            {payslip.id}
           </Text>
         </View>
 
@@ -95,14 +97,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   dateRange: {
-    fontSize: typography.sizes.md,
+    fontSize: typography.sizes.xs,
+    color: colors.textSecondary,
+    marginBottom: 2,
+  },
+  fileName: {
+    fontSize: typography.sizes.sm,
     fontWeight: typography.weights.semibold,
     color: colors.text,
-    marginBottom: spacing.xs,
+    marginBottom: 2,
   },
   payslipId: {
-    fontSize: typography.sizes.sm,
-    color: colors.textSecondary,
+    fontSize: typography.sizes.xs,
+    color: colors.textTertiary,
   },
   chevronContainer: {
     width: 32,

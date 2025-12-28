@@ -13,7 +13,7 @@ import React, {
 
 import { mockPayslips } from '../data/mockPayslips';
 import { FilterYear, Payslip, SortOrder } from '../types/payslip';
-import { compareDates, getYear, getUniqueYears } from '../utils/dateFormatter';
+import { compareDates, getYear, getUniqueYears, formatDateRange } from '../utils/dateFormatter';
 
 interface PayslipsContextValue {
   // Data
@@ -66,15 +66,33 @@ export function PayslipsProvider({
       result = result.filter((p) => getYear(p.toDate) === filterYear);
     }
 
-    // Apply search filter (searches by ID or date range)
+    // Apply search filter - searches across multiple fields
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim();
-      result = result.filter(
-        (p) =>
-          p.id.toLowerCase().includes(query) ||
-          p.fromDate.includes(query) ||
-          p.toDate.includes(query),
-      );
+      result = result.filter((p) => {
+        // Search by ID
+        if (p.id.toLowerCase().includes(query)) {
+          return true;
+        }
+
+        // Search by filename
+        if (p.file.name.toLowerCase().includes(query)) {
+          return true;
+        }
+
+        // Search by ISO date
+        if (p.fromDate.includes(query) || p.toDate.includes(query)) {
+          return true;
+        }
+
+        // Search by formatted month/year
+        const formattedDate = formatDateRange(p.fromDate, p.toDate).toLowerCase();
+        if (formattedDate.includes(query)) {
+          return true;
+        }
+
+        return false;
+      });
     }
 
     // Apply sorting
