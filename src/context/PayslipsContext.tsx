@@ -11,6 +11,8 @@ import React, {
   type ReactNode,
 } from 'react';
 
+import moment from 'moment';
+
 import { mockPayslips } from '../data/mockPayslips';
 import { FilterYear, Payslip, SortOrder } from '../types/payslip';
 import { compareDates, getYear, getUniqueYears, formatDateRange } from '../utils/dateFormatter';
@@ -88,6 +90,12 @@ export function PayslipsProvider({
         // Search by formatted month/year
         const formattedDate = formatDateRange(p.fromDate, p.toDate).toLowerCase();
         if (formattedDate.includes(query)) {
+          return true;
+        }
+
+        // Search by full month name (e.g., "July", "August")
+        const fullMonthName = moment(p.fromDate).format('MMMM').toLowerCase();
+        if (fullMonthName.includes(query)) {
           return true;
         }
 

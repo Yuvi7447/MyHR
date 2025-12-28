@@ -142,6 +142,17 @@ describe('PayslipsContext', () => {
     expect(result.current.payslips[0].id).toBe('PAY-2025-08');
   });
 
+  it('should search by full month name', () => {
+    const { result } = renderHook(() => usePayslipsContext(), { wrapper });
+    
+    act(() => {
+      result.current.setSearchQuery('August');
+    });
+    
+    expect(result.current.payslips).toHaveLength(1);
+    expect(result.current.payslips[0].id).toBe('PAY-2025-08');
+  });
+
   it('should search by year in date', () => {
     const { result } = renderHook(() => usePayslipsContext(), { wrapper });
     
