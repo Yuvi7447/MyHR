@@ -4,6 +4,7 @@
 
 import React, { memo } from 'react';
 import {
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -40,7 +41,7 @@ function FilterBarComponent({
         <Text style={styles.searchIcon}>🔍</Text>
         <TextInput
           style={styles.searchInput}
-          placeholder="Search by month, year, company, or ID..."
+          placeholder="Search by month, year, company name or ID..."
           placeholderTextColor={colors.textTertiary}
           value={searchQuery}
           onChangeText={onSearchChange}
@@ -50,7 +51,7 @@ function FilterBarComponent({
           accessibilityLabel="Search payslips"
           accessibilityHint="Search by month name, year, company name, employee ID, or payslip ID"
         />
-        {searchQuery.length > 0 && (
+        {searchQuery.length > 0 && Platform.OS === 'android' && (
           <Pressable
             onPress={() => onSearchChange('')}
             style={styles.clearButton}
