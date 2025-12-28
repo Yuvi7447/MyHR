@@ -3,8 +3,9 @@
  */
 
 import { RouteProp, useRoute } from '@react-navigation/native';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -14,6 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button, FileTypeIndicator } from '../components';
 import { usePayslip } from '../hooks/usePayslips';
+import { downloadPayslip, openFile, previewPayslip } from '../services/fileService';
 import {
   borderRadius,
   colors,
@@ -32,6 +34,64 @@ export function PayslipDetailsScreen() {
   const { payslipId } = route.params;
 
   const payslip = usePayslip(payslipId);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isPreviewing, setIsPreviewing] = useState(false);
+
+  const handleDownload = useCallback(async () => {
+    if (!payslip) return;
+
+    setIsDownloading(true);
+
+    try {
+      const result = await downloadPayslip(payslip);
+
+      if (result.success && result.filePath) {
+        Alert.alert(
+          'Download Complete',
+          `Payslip saved to:\n${result.filePath}`,
+          [
+            { text: 'OK' },
+            {
+              text: 'Open',
+              onPress: () => openFile(result.filePath!),
+            },
+          ],
+        );
+      } else {
+        Alert.alert(
+          'Download Failed',
+          result.error || 'An unknown error occurred',
+          [{ text: 'OK' }],
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        'Download Failed',
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+        [{ text: 'OK' }],
+      );
+    } finally {
+      setIsDownloading(false);
+    }
+  }, [payslip]);
+
+  const handlePreview = useCallback(async () => {
+    if (!payslip) return;
+
+    setIsPreviewing(true);
+
+    try {
+      await previewPayslip(payslip);
+    } catch (error) {
+      Alert.alert(
+        'Preview Failed',
+        error instanceof Error ? error.message : 'Failed to open payslip',
+        [{ text: 'OK' }],
+      );
+    } finally {
+      setIsPreviewing(false);
+    }
+  }, [payslip]);
 
   if (!payslip) {
     return (
@@ -112,13 +172,15 @@ export function PayslipDetailsScreen() {
       <Button
           title="Preview"
           variant="secondary"
-          onPress={() => {}}  
+          onPress={handlePreview}
+          loading={isPreviewing}
           accessibilityHint="Double tap to open and preview this payslip"
         />
         <Button
           title="Download"
           variant="primary"
-          onPress={() => {}}
+          onPress={handleDownload}
+          loading={isDownloading}
           accessibilityHint="Double tap to download this payslip to your device"
         />
       </View>
