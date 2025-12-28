@@ -1,0 +1,135 @@
+/**
+ * Payslips Context - Global state management for payslips
+ */
+
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
+
+import { mockPayslips } from '../data/mockPayslips';
+import { FilterYear, Payslip, SortOrder } from '../types/payslip';
+import { compareDates, getYear, getUniqueYears } from '../utils/dateFormatter';
+
+interface PayslipsContextValue {
+  // Data
+  payslips: Payslip[];
+  availableYears: number[];
+
+  // Sorting
+  sortOrder: SortOrder;
+  setSortOrder: (order: SortOrder) => void;
+
+  // Filtering
+  filterYear: FilterYear;
+  setFilterYear: (year: FilterYear) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+
+  // Helpers
+  getPayslipById: (id: string) => Payslip | undefined;
+}
+
+const PayslipsContext = createContext<PayslipsContextValue | null>(null);
+
+interface PayslipsProviderProps {
+  children: ReactNode;
+  initialPayslips?: Payslip[];
+}
+
+export function PayslipsProvider({
+  children,
+  initialPayslips = mockPayslips,
+}: PayslipsProviderProps) {
+  // State
+  const [allPayslips] = useState<Payslip[]>(initialPayslips);
+  const [sortOrder, setSortOrder] = useState<SortOrder>('newest');
+  const [filterYear, setFilterYear] = useState<FilterYear>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Available years for filter dropdown
+  const availableYears = useMemo(() => {
+    const dates = allPayslips.map((p) => p.toDate);
+    return getUniqueYears(dates);
+  }, [allPayslips]);
+
+  // Filtered and sorted payslips
+  const payslips = useMemo(() => {
+    let result = [...allPayslips];
+
+    // Apply year filter
+    if (filterYear !== 'all') {
+      result = result.filter((p) => getYear(p.toDate) === filterYear);
+    }
+
+    // Apply search filter (searches by ID or date range)
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      result = result.filter(
+        (p) =>
+          p.id.toLowerCase().includes(query) ||
+          p.fromDate.includes(query) ||
+          p.toDate.includes(query),
+      );
+    }
+
+    // Apply sorting
+    result.sort((a, b) => {
+      const comparison = compareDates(a.toDate, b.toDate);
+      return sortOrder === 'newest' ? -comparison : comparison;
+    });
+
+    return result;
+  }, [allPayslips, sortOrder, filterYear, searchQuery]);
+
+  // Get payslip by ID
+  const getPayslipById = useCallback(
+    (id: string): Payslip | undefined => {
+      return allPayslips.find((p) => p.id === id);
+    },
+    [allPayslips],
+  );
+
+  const value = useMemo(
+    () => ({
+      payslips,
+      availableYears,
+      sortOrder,
+      setSortOrder,
+      filterYear,
+      setFilterYear,
+      searchQuery,
+      setSearchQuery,
+      getPayslipById,
+    }),
+    [
+      payslips,
+      availableYears,
+      sortOrder,
+      filterYear,
+      searchQuery,
+      getPayslipById,
+    ],
+  );
+
+  return (
+    <PayslipsContext.Provider value={value}>
+      {children}
+    </PayslipsContext.Provider>
+  );
+}
+
+export function usePayslipsContext(): PayslipsContextValue {
+  const context = useContext(PayslipsContext);
+  if (!context) {
+    throw new Error(
+      'usePayslipsContext must be used within a PayslipsProvider',
+    );
+  }
+  return context;
+}
+
