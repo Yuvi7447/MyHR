@@ -6,6 +6,8 @@
 import React from 'react';
 import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { PayslipsProvider } from './src/context/PayslipsContext';
 import { RootNavigator } from './src/navigation';
 
 function App() {
@@ -14,7 +16,9 @@ function App() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <RootNavigator />
+      <PayslipsProvider>
+        <RootNavigator />
+      </PayslipsProvider>
     </SafeAreaProvider>
   );
 }
