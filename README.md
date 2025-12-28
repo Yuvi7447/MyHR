@@ -2,13 +2,14 @@
 
 React Native application for viewing and managing payslips with native file handling.
 
+
 ## Tech Stack
 
 - **React Native 0.83** (CLI) + TypeScript
 - **React Navigation** (native-stack)
 - **React Context** (state management)
 - **Moment.js** (date utilities)
-- **Jest + Testing Library** (46 tests, 51% coverage)
+- **Jest + Testing Library** (47 tests)
 
 **Native modules:**
 - `react-native-fs` - File operations
@@ -48,7 +49,7 @@ open coverage/lcov-report/index.html
 Note: All the useful scripts are added under scripts in package.json
 
 **Coverage:**
-- 46 tests across 5 suites
+- 47 tests across 5 suites
 - 100% on date utilities
 - 95% on state management
 - 92% on list screen
@@ -91,8 +92,12 @@ React Context with `useMemo` for filtering/sorting performance
 - Biometric authentication
 - File sharing
 - Dark mode
-- Increase test coverage to 80%+
+- Increase test coverage to 100%
 
 ---
+
+## Screenshots
+
+Screenshots can be found under Snapshots folder for visual reference.
 
 **Author:** Yuvraj Desai
