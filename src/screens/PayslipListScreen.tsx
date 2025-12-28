@@ -4,7 +4,7 @@
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -21,6 +21,7 @@ type NavigationProp = NativeStackNavigationProp<
 export function PayslipListScreen() {
   const navigation = useNavigation<NavigationProp>();
   const insets = useSafeAreaInsets();
+  const flatListRef = useRef<FlatList>(null);
 
   const {
     payslips,
@@ -39,6 +40,12 @@ export function PayslipListScreen() {
     },
     [navigation],
   );
+
+  const handleYearChange = useCallback((year: number | 'all') => {
+    setFilterYear(year);
+    // Scroll to top when year filter changes
+    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+  }, [setFilterYear]);
 
   const renderItem = useCallback(
     ({ item }: { item: Payslip }) => (
@@ -69,24 +76,26 @@ export function PayslipListScreen() {
       {/* Header with filters - outside FlatList to prevent keyboard dismissal */}
       <View style={styles.headerContainer}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>My Payslips</Text>
+          <View>
+            <Text style={styles.title}>Payslips</Text>
+            <Text style={styles.subtitle}>
+              {payslips.length} {payslips.length === 1 ? 'payslip' : 'payslips'}
+            </Text>
+          </View>
           <SortPicker value={sortOrder} onValueChange={setSortOrder} />
         </View>
 
         <FilterBar
           availableYears={availableYears}
           selectedYear={filterYear}
-          onYearChange={setFilterYear}
+          onYearChange={handleYearChange}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
-
-        <Text style={styles.resultCount}>
-          {payslips.length} {payslips.length === 1 ? 'payslip' : 'payslips'}
-        </Text>
       </View>
 
       <FlatList
+        ref={flatListRef}
         data={payslips}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
@@ -120,7 +129,7 @@ const styles = StyleSheet.create({
   titleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingHorizontal: spacing.md,
     marginBottom: spacing.md,
   },
@@ -128,12 +137,11 @@ const styles = StyleSheet.create({
     fontSize: typography.sizes.xxl,
     fontWeight: typography.weights.bold,
     color: colors.text,
+    marginBottom: spacing.xs,
   },
-  resultCount: {
+  subtitle: {
     fontSize: typography.sizes.sm,
     color: colors.textSecondary,
-    paddingHorizontal: spacing.md,
-    marginTop: spacing.sm,
   },
   emptyContainer: {
     flex: 1,

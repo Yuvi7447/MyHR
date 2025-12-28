@@ -8,11 +8,20 @@ export interface PayslipFile {
   assetPath: string;
 }
 
+export interface EmployeeInfo {
+  name: string;
+  department: string;
+}
+
 export interface Payslip {
   id: string;
   fromDate: string; // ISO format: "2024-01-01"
   toDate: string; // ISO format: "2024-01-31"
   file: PayslipFile;
+  netPay: number;
+  grossPay: number;
+  deductions: number;
+  employee: EmployeeInfo;
 }
 
 export type SortOrder = 'newest' | 'oldest';

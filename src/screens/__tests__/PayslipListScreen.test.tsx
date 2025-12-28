@@ -20,6 +20,13 @@ const mockPayslips: Payslip[] = [
       type: 'pdf',
       assetPath: 'INCRED_AUG_2025_IMA000075_Payslip.pdf',
     },
+    grossPay: 8500,
+    deductions: 1700,
+    netPay: 6800,
+    employee: {
+      name: 'Yuvraj Desai',
+      department: 'Mobile Engineering',
+    },
   },
   {
     id: 'PAY-2024-12',
@@ -30,6 +37,13 @@ const mockPayslips: Payslip[] = [
       type: 'pdf',
       assetPath: 'INCRED_DEC_2024_IMA000075_Payslip.pdf',
     },
+    grossPay: 8500,
+    deductions: 1700,
+    netPay: 6800,
+    employee: {
+      name: 'Yuvraj Desai',
+      department: 'Mobile Engineering',
+    },
   },
   {
     id: 'PAY-2023-07',
@@ -39,6 +53,13 @@ const mockPayslips: Payslip[] = [
       name: 'Payslip_Jul_2023.pdf',
       type: 'pdf',
       assetPath: 'Payslip_Jul_2023.pdf',
+    },
+    grossPay: 8500,
+    deductions: 1700,
+    netPay: 6800,
+    employee: {
+      name: 'Yuvraj Desai',
+      department: 'Mobile Engineering',
     },
   },
 ];
@@ -57,16 +78,16 @@ const renderWithProviders = (component: React.ReactElement) => {
 describe('PayslipListScreen', () => {
   it('should render the screen title', () => {
     renderWithProviders(<PayslipListScreen />);
-    expect(screen.getByText('My Payslips')).toBeTruthy();
+    expect(screen.getByText('Payslips')).toBeTruthy();
   });
 
   it('should render all payslip items', () => {
     renderWithProviders(<PayslipListScreen />);
     
     // Check if payslips are rendered
-    expect(screen.getByText('Aug 1 – 31, 2025')).toBeTruthy();
-    expect(screen.getByText('Dec 1 – 31, 2024')).toBeTruthy();
-    expect(screen.getByText('Jul 1 – 31, 2023')).toBeTruthy();
+    expect(screen.getByText('August 2025')).toBeTruthy();
+    expect(screen.getByText('December 2024')).toBeTruthy();
+    expect(screen.getByText('July 2023')).toBeTruthy();
   });
 
   it('should display correct payslip count', () => {
@@ -111,9 +132,9 @@ describe('PayslipListScreen', () => {
     
     // Should show 2 INCRED payslips
     expect(screen.getByText('2 payslips')).toBeTruthy();
-    expect(screen.getByText('Aug 1 – 31, 2025')).toBeTruthy();
-    expect(screen.getByText('Dec 1 – 31, 2024')).toBeTruthy();
-    expect(screen.queryByText('Jul 1 – 31, 2023')).toBeNull();
+    expect(screen.getByText('August 2025')).toBeTruthy();
+    expect(screen.getByText('December 2024')).toBeTruthy();
+    expect(screen.queryByText('July 2023')).toBeNull();
   });
 
   it('should filter payslips by year', () => {
@@ -125,8 +146,8 @@ describe('PayslipListScreen', () => {
     
     // Should show only 2024 payslip
     expect(screen.getByText('1 payslip')).toBeTruthy();
-    expect(screen.getByText('Dec 1 – 31, 2024')).toBeTruthy();
-    expect(screen.queryByText('Aug 1 – 31, 2025')).toBeNull();
+    expect(screen.getByText('December 2024')).toBeTruthy();
+    expect(screen.queryByText('August 2025')).toBeNull();
   });
 
   it('should show empty state when no payslips match filter', () => {
@@ -152,12 +173,12 @@ describe('PayslipListScreen', () => {
     expect(screen.getByText('2023')).toBeTruthy();
   });
 
-  it('should display payslip filenames', () => {
+  it('should display net pay amounts', () => {
     renderWithProviders(<PayslipListScreen />);
     
-    expect(screen.getByText('INCRED_AUG_2025_IMA000075_Payslip.pdf')).toBeTruthy();
-    expect(screen.getByText('INCRED_DEC_2024_IMA000075_Payslip.pdf')).toBeTruthy();
-    expect(screen.getByText('Payslip_Jul_2023.pdf')).toBeTruthy();
+    // All mock payslips have the same net pay
+    const netPayElements = screen.getAllByText('$6,800');
+    expect(netPayElements.length).toBeGreaterThan(0);
   });
 });
 

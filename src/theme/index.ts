@@ -6,9 +6,9 @@ import { Platform } from 'react-native';
 
 export const colors = {
   // Primary palette
-  primary: '#0F2942',
-  primaryLight: '#1E3A5F',
-  primaryDark: '#0A1C2E',
+  primary: '#8B5CF6',
+  primaryLight: '#A78BFA',
+  primaryDark: '#7C3AED',
 
   // Accent
   accent: '#FF6B35',

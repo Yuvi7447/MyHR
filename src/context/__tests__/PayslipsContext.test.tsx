@@ -17,6 +17,13 @@ const mockPayslips: Payslip[] = [
       type: 'pdf',
       assetPath: 'INCRED_AUG_2025_IMA000075_Payslip.pdf',
     },
+    grossPay: 8500,
+    deductions: 1700,
+    netPay: 6800,
+    employee: {
+      name: 'Yuvraj Desai',
+      department: 'Mobile Engineering',
+    },
   },
   {
     id: 'PAY-2024-12',
@@ -27,6 +34,13 @@ const mockPayslips: Payslip[] = [
       type: 'pdf',
       assetPath: 'INCRED_DEC_2024_IMA000075_Payslip.pdf',
     },
+    grossPay: 8500,
+    deductions: 1700,
+    netPay: 6800,
+    employee: {
+      name: 'Yuvraj Desai',
+      department: 'Mobile Engineering',
+    },
   },
   {
     id: 'PAY-2023-07',
@@ -36,6 +50,13 @@ const mockPayslips: Payslip[] = [
       name: 'Payslip_Jul_2023.pdf',
       type: 'pdf',
       assetPath: 'Payslip_Jul_2023.pdf',
+    },
+    grossPay: 8500,
+    deductions: 1700,
+    netPay: 6800,
+    employee: {
+      name: 'Yuvraj Desai',
+      department: 'Mobile Engineering',
     },
   },
 ];

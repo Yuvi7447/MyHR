@@ -7,16 +7,21 @@ import moment from 'moment';
 import { Payslip } from '../types/payslip';
 
 /**
- * Helper to create a payslip entry
+ * Helper to create a payslip entry with realistic financial data
  */
 function createPayslip(
   id: string,
   year: number,
   month: number,
   fileName: string,
+  grossPay: number = 8500,
 ): Payslip {
   const startDate = moment({ year, month: month - 1, day: 1 });
   const endDate = startDate.clone().endOf('month');
+  
+  // Calculate realistic deductions (20% of gross pay)
+  const deductions = Math.round(grossPay * 0.2);
+  const netPay = grossPay - deductions;
 
   return {
     id,
@@ -26,6 +31,13 @@ function createPayslip(
       name: fileName,
       type: 'pdf',
       assetPath: fileName,
+    },
+    grossPay,
+    deductions,
+    netPay,
+    employee: {
+      name: 'Yuvraj Desai',
+      department: 'Mobile Engineering',
     },
   };
 }

@@ -86,6 +86,7 @@ React Context with `useMemo` for filtering/sorting performance
 - API integration
 - Upload to Google Drive option
 - Multiple selection, timeline view and allow user to switch between full & half-width list views
+- UX: Press & hold to quickly preview the document, shared element transition() when navigating to details screen
 - Replace alerts with toast
 - Biometric authentication
 - File sharing

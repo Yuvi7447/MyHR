@@ -1,35 +1,29 @@
 /**
- * PayslipDetailsScreen - View payslip details and download
+ * PayslipDetailsScreen - Detailed view of a single payslip (Figma design)
  */
 
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useState } from 'react';
-import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import moment from 'moment';
 
-import { Button, FileTypeIndicator } from '../components';
+import { Button, HeroCard, InfoSection } from '../components';
 import { usePayslip } from '../hooks/usePayslips';
-import { downloadPayslip, openFile, previewPayslip } from '../services/fileService';
-import {
-  borderRadius,
-  colors,
-  shadows,
-  spacing,
-  typography,
-} from '../theme';
+import { downloadPayslip, previewPayslip } from '../services/fileService';
+import { colors, spacing } from '../theme';
 import { RootStackParamList } from '../types/payslip';
-import { formatDateFull, formatDateRange } from '../utils/dateFormatter';
 
-type DetailsRouteProp = RouteProp<RootStackParamList, 'PayslipDetails'>;
+type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'PayslipDetails'>;
+type DetailsScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'PayslipDetails'
+>;
 
 export function PayslipDetailsScreen() {
-  const route = useRoute<DetailsRouteProp>();
+  const route = useRoute<DetailsScreenRouteProp>();
+  const navigation = useNavigation<DetailsScreenNavigationProp>();
   const insets = useSafeAreaInsets();
   const { payslipId } = route.params;
 
@@ -37,37 +31,36 @@ export function PayslipDetailsScreen() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPreviewing, setIsPreviewing] = useState(false);
 
+  // Set header title
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Payslip Details',
+      headerBackTitle: 'Back',
+    });
+  }, [navigation]);
+
   const handleDownload = useCallback(async () => {
     if (!payslip) return;
 
     setIsDownloading(true);
-
     try {
       const result = await downloadPayslip(payslip);
 
-      if (result.success && result.filePath) {
+      if (result.success) {
         Alert.alert(
-          'Download Complete',
+          'Download Successful',
           `Payslip saved to:\n${result.filePath}`,
-          [
-            { text: 'OK' },
-            {
-              text: 'Open',
-              onPress: () => openFile(result.filePath!),
-            },
-          ],
-        );
-      } else {
-        Alert.alert(
-          'Download Failed',
-          result.error || 'An unknown error occurred',
           [{ text: 'OK' }],
         );
+      } else {
+        Alert.alert('Download Failed', result.error || 'Unknown error occurred', [
+          { text: 'OK' },
+        ]);
       }
     } catch (error) {
       Alert.alert(
         'Download Failed',
-        error instanceof Error ? error.message : 'An unexpected error occurred',
+        error instanceof Error ? error.message : 'Unknown error occurred',
         [{ text: 'OK' }],
       );
     } finally {
@@ -79,13 +72,12 @@ export function PayslipDetailsScreen() {
     if (!payslip) return;
 
     setIsPreviewing(true);
-
     try {
       await previewPayslip(payslip);
     } catch (error) {
       Alert.alert(
         'Preview Failed',
-        error instanceof Error ? error.message : 'Failed to open payslip',
+        error instanceof Error ? error.message : 'Unable to preview payslip',
         [{ text: 'OK' }],
       );
     } finally {
@@ -95,85 +87,78 @@ export function PayslipDetailsScreen() {
 
   if (!payslip) {
     return (
-      <View style={[styles.container, styles.centerContent]}>
-        <Text style={styles.errorIcon}>❌</Text>
-        <Text style={styles.errorTitle}>Payslip Not Found</Text>
-        <Text style={styles.errorMessage}>
-          The requested payslip could not be found.
-        </Text>
+      <View style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Button title="Go Back" onPress={() => navigation.goBack()} />
+        </View>
       </View>
     );
   }
 
-  const dateRange = formatDateRange(payslip.fromDate, payslip.toDate);
+  const monthYear = moment(payslip.fromDate).format('MMMM YYYY');
+  const formattedNetPay = `$${payslip.netPay.toLocaleString()}`;
+  const formattedGrossPay = `$${payslip.grossPay.toLocaleString()}`;
+  const formattedDeductions = `-$${payslip.deductions.toLocaleString()}`;
+  const startDate = moment(payslip.fromDate).format('MMMM D, YYYY');
+  const endDate = moment(payslip.toDate).format('MMMM D, YYYY');
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={[
-        styles.contentContainer,
-        { paddingBottom: insets.bottom + spacing.xl },
-      ]}>
-      {/* File Type Card */}
-      <View style={styles.fileCard}>
-        <FileTypeIndicator
-          fileType={payslip.file.type}
-          fileName={payslip.file.name}
-          size="large"
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: insets.bottom + spacing.xl },
+        ]}
+        showsVerticalScrollIndicator={false}>
+        
+        {/* Hero Card */}
+        <HeroCard
+          title="Payment period"
+          subtitle={monthYear}
+          amount={formattedNetPay}
+          style={styles.heroCard}
         />
-      </View>
 
-      {/* Details Card */}
-      <View style={styles.detailsCard}>
-        <Text style={styles.sectionTitle}>Payslip Details</Text>
+        {/* Payment Details */}
+        <InfoSection
+          title="Payment details"
+          rows={[
+            { label: 'Payslip ID', value: payslip.id },
+            { label: 'Start date', value: startDate },
+            { label: 'End date', value: endDate },
+            { label: 'File type', value: 'PDF', valueColor: colors.primary },
+          ]}
+        />
 
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>ID</Text>
-          <Text style={styles.detailValue}>{payslip.id}</Text>
-        </View>
+        {/* Employee Information */}
+        <InfoSection
+          title="Employee information"
+          rows={[
+            { label: 'Name', value: payslip.employee.name },
+            { label: 'Department', value: payslip.employee.department },
+          ]}
+        />
 
-        <View style={styles.divider} />
+        {/* Earnings Breakdown */}
+        <InfoSection
+          title="Earnings breakdown"
+          rows={[
+            { label: 'Gross pay', value: formattedGrossPay },
+            { label: 'Deductions', value: formattedDeductions, valueColor: colors.error },
+            { label: 'Net pay', value: formattedNetPay, valueColor: colors.success, isHighlighted: true },
+          ]}
+        />
+      </ScrollView>
 
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Period</Text>
-          <Text style={styles.detailValue}>{dateRange}</Text>
-        </View>
-
-        <View style={styles.divider} />
-
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>From</Text>
-          <Text style={styles.detailValue}>
-            {formatDateFull(payslip.fromDate)}
-          </Text>
-        </View>
-
-        <View style={styles.divider} />
-
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>To</Text>
-          <Text style={styles.detailValue}>
-            {formatDateFull(payslip.toDate)}
-          </Text>
-        </View>
-
-        <View style={styles.divider} />
-
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>File Type</Text>
-          <Text style={styles.detailValue}>
-            {payslip.file.type.toUpperCase()}
-          </Text>
-        </View>
-      </View>
-
-      {/* Actions */}
-      <View style={styles.actionsContainer}>
-      <Button
+      {/* Action Buttons */}
+      <View style={[styles.actionsContainer, { paddingBottom: insets.bottom + spacing.md }]}>
+        <Button
           title="Preview"
           variant="secondary"
           onPress={handlePreview}
           loading={isPreviewing}
+          style={styles.previewButton}
           accessibilityHint="Double tap to open and preview this payslip"
         />
         <Button
@@ -181,10 +166,11 @@ export function PayslipDetailsScreen() {
           variant="primary"
           onPress={handleDownload}
           loading={isDownloading}
+          style={styles.downloadButton}
           accessibilityHint="Double tap to download this payslip to your device"
         />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -193,73 +179,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  contentContainer: {
-    padding: spacing.md,
+  scrollView: {
+    flex: 1,
   },
-  centerContent: {
+  scrollContent: {
+    paddingTop: spacing.md,
+  },
+  heroCard: {
+    marginTop: spacing.sm,
+  },
+  errorContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  errorIcon: {
-    fontSize: 48,
-    marginBottom: spacing.md,
-  },
-  errorTitle: {
-    fontSize: typography.sizes.xl,
-    fontWeight: typography.weights.semibold,
-    color: colors.text,
-    marginBottom: spacing.sm,
-  },
-  errorMessage: {
-    fontSize: typography.sizes.md,
-    color: colors.textSecondary,
-    textAlign: 'center',
-  },
-  fileCard: {
-    backgroundColor: colors.surface,
-    borderRadius: borderRadius.lg,
     padding: spacing.xl,
-    alignItems: 'center',
-    marginBottom: spacing.md,
-    ...shadows.md,
-  },
-  detailsCard: {
-    backgroundColor: colors.surface,
-    borderRadius: borderRadius.lg,
-    padding: spacing.lg,
-    marginBottom: spacing.lg,
-    ...shadows.md,
-  },
-  sectionTitle: {
-    fontSize: typography.sizes.lg,
-    fontWeight: typography.weights.bold,
-    color: colors.text,
-    marginBottom: spacing.md,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: spacing.sm,
-  },
-  detailLabel: {
-    fontSize: typography.sizes.md,
-    color: colors.textSecondary,
-  },
-  detailValue: {
-    fontSize: typography.sizes.md,
-    fontWeight: typography.weights.medium,
-    color: colors.text,
-    textAlign: 'right',
-    flex: 1,
-    marginLeft: spacing.md,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: colors.divider,
   },
   actionsContainer: {
-    gap: spacing.md,
+    flexDirection: 'row',
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.md,
+    backgroundColor: colors.surface,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    gap: spacing.sm,
+  },
+  previewButton: {
+    flex: 1,
+  },
+  downloadButton: {
+    flex: 1,
   },
 });
-
