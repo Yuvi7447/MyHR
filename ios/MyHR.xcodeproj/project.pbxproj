@@ -12,7 +12,43 @@
 		28C9B4B59FE304C9ACB97C80 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		CA28E0A82F00FC7300B12062 /* Payslip_Jun_2021.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E08E2F00FC7200B12062 /* Payslip_Jun_2021.pdf */; };
+		CA28E0A92F00FC7300B12062 /* INCRED_DEC_2024_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E08F2F00FC7200B12062 /* INCRED_DEC_2024_IMA000075_Payslip.pdf */; };
+		CA28E0AA2F00FC7300B12062 /* INCRED_MAY_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0902F00FC7200B12062 /* INCRED_MAY_2025_IMA000075_Payslip.pdf */; };
+		CA28E0AB2F00FC7300B12062 /* Payslip_May_2021.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0912F00FC7200B12062 /* Payslip_May_2021.pdf */; };
+		CA28E0AC2F00FC7300B12062 /* Payslip_Jul_2023.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0922F00FC7200B12062 /* Payslip_Jul_2023.pdf */; };
+		CA28E0AD2F00FC7300B12062 /* INCRED_JUL_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0932F00FC7200B12062 /* INCRED_JUL_2025_IMA000075_Payslip.pdf */; };
+		CA28E0AE2F00FC7300B12062 /* Payslip_Mar_2021.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0942F00FC7200B12062 /* Payslip_Mar_2021.pdf */; };
+		CA28E0AF2F00FC7300B12062 /* INCRED_AUG_2024_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0952F00FC7200B12062 /* INCRED_AUG_2024_IMA000075_Payslip.pdf */; };
+		CA28E0B02F00FC7300B12062 /* INCRED_FEB_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0962F00FC7200B12062 /* INCRED_FEB_2025_IMA000075_Payslip.pdf */; };
+		CA28E0B12F00FC7300B12062 /* INCRED_JAN_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0972F00FC7200B12062 /* INCRED_JAN_2025_IMA000075_Payslip.pdf */; };
+		CA28E0B22F00FC7300B12062 /* Payslip_Jan_2024.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0982F00FC7200B12062 /* Payslip_Jan_2024.pdf */; };
+		CA28E0B32F00FC7300B12062 /* Payslip_Aug_2022.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0992F00FC7200B12062 /* Payslip_Aug_2022.pdf */; };
+		CA28E0B42F00FC7300B12062 /* INCRED_JUN_2024_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E09A2F00FC7200B12062 /* INCRED_JUN_2024_IMA000075_Payslip.pdf */; };
+		CA28E0B52F00FC7300B12062 /* INCRED_JUL_2024_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E09B2F00FC7200B12062 /* INCRED_JUL_2024_IMA000075_Payslip.pdf */; };
+		CA28E0B62F00FC7300B12062 /* Payslip_May_2022.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E09C2F00FC7200B12062 /* Payslip_May_2022.pdf */; };
+		CA28E0B72F00FC7300B12062 /* Yuvrajsinh D_Payslip Aug 19.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E09D2F00FC7200B12062 /* Yuvrajsinh D_Payslip Aug 19.pdf */; };
+		CA28E0B82F00FC7300B12062 /* INCRED_NOV_2024_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E09E2F00FC7200B12062 /* INCRED_NOV_2024_IMA000075_Payslip.pdf */; };
+		CA28E0B92F00FC7300B12062 /* INCRED_SEP_2024_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E09F2F00FC7200B12062 /* INCRED_SEP_2024_IMA000075_Payslip.pdf */; };
+		CA28E0BA2F00FC7300B12062 /* INCRED_MAR_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A02F00FC7200B12062 /* INCRED_MAR_2025_IMA000075_Payslip.pdf */; };
+		CA28E0BB2F00FC7300B12062 /* INCRED_OCT_2024_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A12F00FC7200B12062 /* INCRED_OCT_2024_IMA000075_Payslip.pdf */; };
+		CA28E0BC2F00FC7300B12062 /* INCRED_AUG_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A22F00FC7200B12062 /* INCRED_AUG_2025_IMA000075_Payslip.pdf */; };
+		CA28E0BD2F00FC7300B12062 /* INCRED_JUN_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A32F00FC7300B12062 /* INCRED_JUN_2025_IMA000075_Payslip.pdf */; };
+		CA28E0BE2F00FC7300B12062 /* Payslip_Feb_2022.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A42F00FC7300B12062 /* Payslip_Feb_2022.pdf */; };
+		CA28E0BF2F00FC7300B12062 /* INCRED_APR_2025_IMA000075_Payslip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A52F00FC7300B12062 /* INCRED_APR_2025_IMA000075_Payslip.pdf */; };
+		CA28E0C02F00FC7300B12062 /* Payslip_Aug_2020.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A62F00FC7300B12062 /* Payslip_Aug_2020.pdf */; };
+		CA28E0C12F00FC7300B12062 /* Payslip_Mar_2023.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CA28E0A72F00FC7300B12062 /* Payslip_Mar_2023.pdf */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CA28E0C82F01187900B12062 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CA28E0C22F01187900B12062 /* ReactNativeQuickLook.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B727484D1D3D4BC500A55379;
+			remoteInfo = ReactNativeQuickLook;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* MyHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +60,34 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-MyHR.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyHR.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MyHR/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MyHR/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CA28E08E2F00FC7200B12062 /* Payslip_Jun_2021.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Jun_2021.pdf; path = ../src/assets/payslips/Payslip_Jun_2021.pdf; sourceTree = "<group>"; };
+		CA28E08F2F00FC7200B12062 /* INCRED_DEC_2024_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_DEC_2024_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_DEC_2024_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0902F00FC7200B12062 /* INCRED_MAY_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_MAY_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_MAY_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0912F00FC7200B12062 /* Payslip_May_2021.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_May_2021.pdf; path = ../src/assets/payslips/Payslip_May_2021.pdf; sourceTree = "<group>"; };
+		CA28E0922F00FC7200B12062 /* Payslip_Jul_2023.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Jul_2023.pdf; path = ../src/assets/payslips/Payslip_Jul_2023.pdf; sourceTree = "<group>"; };
+		CA28E0932F00FC7200B12062 /* INCRED_JUL_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_JUL_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_JUL_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0942F00FC7200B12062 /* Payslip_Mar_2021.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Mar_2021.pdf; path = ../src/assets/payslips/Payslip_Mar_2021.pdf; sourceTree = "<group>"; };
+		CA28E0952F00FC7200B12062 /* INCRED_AUG_2024_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_AUG_2024_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_AUG_2024_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0962F00FC7200B12062 /* INCRED_FEB_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_FEB_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_FEB_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0972F00FC7200B12062 /* INCRED_JAN_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_JAN_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_JAN_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0982F00FC7200B12062 /* Payslip_Jan_2024.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Jan_2024.pdf; path = ../src/assets/payslips/Payslip_Jan_2024.pdf; sourceTree = "<group>"; };
+		CA28E0992F00FC7200B12062 /* Payslip_Aug_2022.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Aug_2022.pdf; path = ../src/assets/payslips/Payslip_Aug_2022.pdf; sourceTree = "<group>"; };
+		CA28E09A2F00FC7200B12062 /* INCRED_JUN_2024_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_JUN_2024_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_JUN_2024_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E09B2F00FC7200B12062 /* INCRED_JUL_2024_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_JUL_2024_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_JUL_2024_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E09C2F00FC7200B12062 /* Payslip_May_2022.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_May_2022.pdf; path = ../src/assets/payslips/Payslip_May_2022.pdf; sourceTree = "<group>"; };
+		CA28E09D2F00FC7200B12062 /* Yuvrajsinh D_Payslip Aug 19.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "Yuvrajsinh D_Payslip Aug 19.pdf"; path = "../src/assets/payslips/Yuvrajsinh D_Payslip Aug 19.pdf"; sourceTree = "<group>"; };
+		CA28E09E2F00FC7200B12062 /* INCRED_NOV_2024_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_NOV_2024_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_NOV_2024_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E09F2F00FC7200B12062 /* INCRED_SEP_2024_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_SEP_2024_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_SEP_2024_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0A02F00FC7200B12062 /* INCRED_MAR_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_MAR_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_MAR_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0A12F00FC7200B12062 /* INCRED_OCT_2024_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_OCT_2024_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_OCT_2024_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0A22F00FC7200B12062 /* INCRED_AUG_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_AUG_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_AUG_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0A32F00FC7300B12062 /* INCRED_JUN_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_JUN_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_JUN_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0A42F00FC7300B12062 /* Payslip_Feb_2022.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Feb_2022.pdf; path = ../src/assets/payslips/Payslip_Feb_2022.pdf; sourceTree = "<group>"; };
+		CA28E0A52F00FC7300B12062 /* INCRED_APR_2025_IMA000075_Payslip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = INCRED_APR_2025_IMA000075_Payslip.pdf; path = ../src/assets/payslips/INCRED_APR_2025_IMA000075_Payslip.pdf; sourceTree = "<group>"; };
+		CA28E0A62F00FC7300B12062 /* Payslip_Aug_2020.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Aug_2020.pdf; path = ../src/assets/payslips/Payslip_Aug_2020.pdf; sourceTree = "<group>"; };
+		CA28E0A72F00FC7300B12062 /* Payslip_Mar_2023.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Payslip_Mar_2023.pdf; path = ../src/assets/payslips/Payslip_Mar_2023.pdf; sourceTree = "<group>"; };
+		CA28E0C22F01187900B12062 /* ReactNativeQuickLook.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeQuickLook.xcodeproj; path = "../node_modules/react-native-quick-look/ios/ReactNativeQuickLook.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		CA28E0CB2F0118BF00B12062 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -54,6 +118,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CA28E0CB2F0118BF00B12062 /* QuickLook.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-MyHR.a */,
 			);
@@ -63,6 +128,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				CA28E0C22F01187900B12062 /* ReactNativeQuickLook.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -70,6 +136,32 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CA28E0A52F00FC7300B12062 /* INCRED_APR_2025_IMA000075_Payslip.pdf */,
+				CA28E0952F00FC7200B12062 /* INCRED_AUG_2024_IMA000075_Payslip.pdf */,
+				CA28E0A22F00FC7200B12062 /* INCRED_AUG_2025_IMA000075_Payslip.pdf */,
+				CA28E08F2F00FC7200B12062 /* INCRED_DEC_2024_IMA000075_Payslip.pdf */,
+				CA28E0962F00FC7200B12062 /* INCRED_FEB_2025_IMA000075_Payslip.pdf */,
+				CA28E0972F00FC7200B12062 /* INCRED_JAN_2025_IMA000075_Payslip.pdf */,
+				CA28E09B2F00FC7200B12062 /* INCRED_JUL_2024_IMA000075_Payslip.pdf */,
+				CA28E0932F00FC7200B12062 /* INCRED_JUL_2025_IMA000075_Payslip.pdf */,
+				CA28E09A2F00FC7200B12062 /* INCRED_JUN_2024_IMA000075_Payslip.pdf */,
+				CA28E0A32F00FC7300B12062 /* INCRED_JUN_2025_IMA000075_Payslip.pdf */,
+				CA28E0A02F00FC7200B12062 /* INCRED_MAR_2025_IMA000075_Payslip.pdf */,
+				CA28E0902F00FC7200B12062 /* INCRED_MAY_2025_IMA000075_Payslip.pdf */,
+				CA28E09E2F00FC7200B12062 /* INCRED_NOV_2024_IMA000075_Payslip.pdf */,
+				CA28E0A12F00FC7200B12062 /* INCRED_OCT_2024_IMA000075_Payslip.pdf */,
+				CA28E09F2F00FC7200B12062 /* INCRED_SEP_2024_IMA000075_Payslip.pdf */,
+				CA28E0A62F00FC7300B12062 /* Payslip_Aug_2020.pdf */,
+				CA28E0992F00FC7200B12062 /* Payslip_Aug_2022.pdf */,
+				CA28E0A42F00FC7300B12062 /* Payslip_Feb_2022.pdf */,
+				CA28E0982F00FC7200B12062 /* Payslip_Jan_2024.pdf */,
+				CA28E0922F00FC7200B12062 /* Payslip_Jul_2023.pdf */,
+				CA28E08E2F00FC7200B12062 /* Payslip_Jun_2021.pdf */,
+				CA28E0942F00FC7200B12062 /* Payslip_Mar_2021.pdf */,
+				CA28E0A72F00FC7300B12062 /* Payslip_Mar_2023.pdf */,
+				CA28E0912F00FC7200B12062 /* Payslip_May_2021.pdf */,
+				CA28E09C2F00FC7200B12062 /* Payslip_May_2022.pdf */,
+				CA28E09D2F00FC7200B12062 /* Yuvrajsinh D_Payslip Aug 19.pdf */,
 				13B07FAE1A68108700A75B9A /* MyHR */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -96,6 +188,14 @@
 				5709B34CF0A7D63546082F79 /* Pods-MyHR.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CA28E0C52F01187900B12062 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CA28E0C92F01187900B12062 /* libReactNativeQuickLook.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +246,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CA28E0C52F01187900B12062 /* Products */;
+					ProjectRef = CA28E0C22F01187900B12062 /* ReactNativeQuickLook.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* MyHR */,
@@ -153,11 +259,47 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		CA28E0C92F01187900B12062 /* libReactNativeQuickLook.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativeQuickLook.a;
+			remoteRef = CA28E0C82F01187900B12062 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA28E0A82F00FC7300B12062 /* Payslip_Jun_2021.pdf in Resources */,
+				CA28E0A92F00FC7300B12062 /* INCRED_DEC_2024_IMA000075_Payslip.pdf in Resources */,
+				CA28E0AA2F00FC7300B12062 /* INCRED_MAY_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0AB2F00FC7300B12062 /* Payslip_May_2021.pdf in Resources */,
+				CA28E0AC2F00FC7300B12062 /* Payslip_Jul_2023.pdf in Resources */,
+				CA28E0AD2F00FC7300B12062 /* INCRED_JUL_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0AE2F00FC7300B12062 /* Payslip_Mar_2021.pdf in Resources */,
+				CA28E0AF2F00FC7300B12062 /* INCRED_AUG_2024_IMA000075_Payslip.pdf in Resources */,
+				CA28E0B02F00FC7300B12062 /* INCRED_FEB_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0B12F00FC7300B12062 /* INCRED_JAN_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0B22F00FC7300B12062 /* Payslip_Jan_2024.pdf in Resources */,
+				CA28E0B32F00FC7300B12062 /* Payslip_Aug_2022.pdf in Resources */,
+				CA28E0B42F00FC7300B12062 /* INCRED_JUN_2024_IMA000075_Payslip.pdf in Resources */,
+				CA28E0B52F00FC7300B12062 /* INCRED_JUL_2024_IMA000075_Payslip.pdf in Resources */,
+				CA28E0B62F00FC7300B12062 /* Payslip_May_2022.pdf in Resources */,
+				CA28E0B72F00FC7300B12062 /* Yuvrajsinh D_Payslip Aug 19.pdf in Resources */,
+				CA28E0B82F00FC7300B12062 /* INCRED_NOV_2024_IMA000075_Payslip.pdf in Resources */,
+				CA28E0B92F00FC7300B12062 /* INCRED_SEP_2024_IMA000075_Payslip.pdf in Resources */,
+				CA28E0BA2F00FC7300B12062 /* INCRED_MAR_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0BB2F00FC7300B12062 /* INCRED_OCT_2024_IMA000075_Payslip.pdf in Resources */,
+				CA28E0BC2F00FC7300B12062 /* INCRED_AUG_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0BD2F00FC7300B12062 /* INCRED_JUN_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0BE2F00FC7300B12062 /* Payslip_Feb_2022.pdf in Resources */,
+				CA28E0BF2F00FC7300B12062 /* INCRED_APR_2025_IMA000075_Payslip.pdf in Resources */,
+				CA28E0C02F00FC7300B12062 /* Payslip_Aug_2020.pdf in Resources */,
+				CA28E0C12F00FC7300B12062 /* Payslip_Mar_2023.pdf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				28C9B4B59FE304C9ACB97C80 /* PrivacyInfo.xcprivacy in Resources */,
