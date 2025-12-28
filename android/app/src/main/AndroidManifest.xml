@@ -2,6 +2,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Queries for Android 11+ to see PDF viewer apps -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="application/pdf" />
+        </intent>
+    </queries>
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
