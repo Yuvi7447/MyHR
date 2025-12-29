@@ -115,7 +115,7 @@ describe('PayslipListScreen', () => {
   it('should render search input with placeholder', () => {
     renderWithProviders(<PayslipListScreen />);
     const searchInput = screen.getByPlaceholderText(
-      'Search by month, year, company, or ID...',
+      'Search by month, year, company name or ID...',
     );
     expect(searchInput).toBeTruthy();
   });
@@ -124,7 +124,7 @@ describe('PayslipListScreen', () => {
     renderWithProviders(<PayslipListScreen />);
     
     const searchInput = screen.getByPlaceholderText(
-      'Search by month, year, company, or ID...',
+      'Search by month, year, company name or ID...',
     );
     
     // Search for "INCRED"
@@ -154,7 +154,7 @@ describe('PayslipListScreen', () => {
     renderWithProviders(<PayslipListScreen />);
     
     const searchInput = screen.getByPlaceholderText(
-      'Search by month, year, company, or ID...',
+      'Search by month, year, company name or ID...',
     );
     
     // Search for non-existent payslip
