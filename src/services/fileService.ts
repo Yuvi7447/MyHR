@@ -1,13 +1,13 @@
 /**
  * File Service - Handle PDF preview and download operations
- * 
+ *
  * This service manages payslip PDF files:
  * 1. Copy bundled PDFs to accessible locations
  * 2. Preview PDFs using native viewers (Quick Look on iOS, Intent on Android)
  * 3. Download PDFs to device storage
  */
 
-import { Platform } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import FileViewer from 'react-native-file-viewer';
 import RNFS from 'react-native-fs';
@@ -41,6 +41,39 @@ function getAppDirectory(): string {
  */
 function generateFileName(payslip: Payslip): string {
   return payslip.file.name;
+}
+
+/**
+ * Request storage permission for Android 9 (API 28) and below
+ * Android 10+ uses scoped storage and doesn't need this permission for Downloads
+ */
+async function requestStoragePermission(): Promise<boolean> {
+  if (Platform.OS !== 'android') {
+    return true;
+  }
+
+  // Android 10 (API 29) and above don't need storage permission for Downloads folder
+  if (Platform.Version >= 29) {
+    return true;
+  }
+
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: 'Storage Permission Required',
+        message: 'MyHR needs access to your storage to save payslip files.',
+        buttonNeutral: 'Ask Later',
+        buttonNegative: 'Deny',
+        buttonPositive: 'Allow',
+      },
+    );
+
+    return granted === PermissionsAndroid.RESULTS.GRANTED;
+  } catch (error) {
+    console.error('Permission request error:', error);
+    return false;
+  }
 }
 
 
@@ -78,11 +111,22 @@ async function copyAssetToReadableLocation(
 /**
  * Copies PDF from app bundle to Downloads/Documents folder
  * Returns file path on success
+ *
+ * Note: Requests storage permission on Android 9 and below
  */
 export async function downloadPayslip(
   payslip: Payslip,
 ): Promise<DownloadResult> {
   try {
+    // Request permission for Android 9 and below
+    const hasPermission = await requestStoragePermission();
+    if (!hasPermission) {
+      return {
+        success: false,
+        error: 'Storage permission denied. Please allow storage access in Settings.',
+      };
+    }
+
     const downloadDir = getDownloadDirectory();
     const fileName = generateFileName(payslip);
     const destinationPath = `${downloadDir}/${fileName}`;
@@ -143,7 +187,6 @@ export async function previewPayslip(payslip: Payslip): Promise<void> {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : '';
     if (errorMessage !== 'User did not share' && errorMessage !== 'User cancelled') {
-      console.error('Preview error:', error);
       throw new Error(
         error instanceof Error ? error.message : 'Failed to preview payslip',
       );
