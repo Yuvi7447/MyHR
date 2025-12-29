@@ -1,15 +1,13 @@
 /**
  * File Service - Handle PDF preview and download operations
- *
- * This service manages payslip PDF files:
- * 1. Copy bundled PDFs to accessible locations
- * 2. Preview PDFs using native viewers (Quick Look on iOS, Intent on Android)
- * 3. Download PDFs to device storage
  */
 
+import {
+  errorCodes,
+  isErrorWithCode,
+  viewDocument,
+} from '@react-native-documents/viewer';
 import { PermissionsAndroid, Platform } from 'react-native';
-import ReactNativeBlobUtil from 'react-native-blob-util';
-import FileViewer from 'react-native-file-viewer';
 import RNFS from 'react-native-fs';
 
 import { Payslip } from '../types/payslip';
@@ -24,9 +22,17 @@ export interface DownloadResult {
  * Get download directory for saving files permanently
  */
 function getDownloadDirectory(): string {
-  return Platform.OS === 'ios' 
-    ? RNFS.DocumentDirectoryPath 
-    : RNFS.DownloadDirectoryPath;
+  if (Platform.OS === 'ios') {
+    return RNFS.DocumentDirectoryPath;
+  }
+
+  const androidVersion = typeof Platform.Version === 'number' ? Platform.Version : parseInt(String(Platform.Version), 10);
+  if (androidVersion >= 29) {
+    return RNFS.ExternalDirectoryPath || RNFS.DocumentDirectoryPath;
+  }
+
+  // Android 9 and below: Can use public Downloads folder
+  return RNFS.DownloadDirectoryPath;
 }
 
 /**
@@ -44,15 +50,43 @@ function generateFileName(payslip: Payslip): string {
 }
 
 /**
+ * Handle errors from @react-native-documents/viewer
+ */
+function handleViewerError(err: unknown): string | null {
+  if (isErrorWithCode(err)) {
+    switch (err.code) {
+      case errorCodes.UNABLE_TO_OPEN_FILE_TYPE:
+        return 'Unable to open this file type. No compatible app found.';
+      case errorCodes.NULL_PRESENTER:
+        return 'Unable to present document viewer.';
+      default:
+        // Handle other codes like cancellation
+        const errorStr = String(err.code).toLowerCase();
+        if (errorStr.includes('cancel') || errorStr.includes('progress')) {
+          return null;
+        }
+        return String(err);
+    }
+  }
+  // Non-standard error - check for cancellation patterns
+  const errorMessage = err instanceof Error ? err.message : String(err);
+  if (
+    errorMessage.toLowerCase().includes('cancel') ||
+    errorMessage.toLowerCase().includes('dismiss')
+  ) {
+    return null; // User cancelled - ignore
+  }
+  return err instanceof Error ? err.message : 'Failed to open document';
+}
+
+/**
  * Request storage permission for Android 9 (API 28) and below
- * Android 10+ uses scoped storage and doesn't need this permission for Downloads
  */
 async function requestStoragePermission(): Promise<boolean> {
   if (Platform.OS !== 'android') {
     return true;
   }
 
-  // Android 10 (API 29) and above don't need storage permission for Downloads folder
   if (Platform.Version >= 29) {
     return true;
   }
@@ -110,9 +144,6 @@ async function copyAssetToReadableLocation(
 
 /**
  * Copies PDF from app bundle to Downloads/Documents folder
- * Returns file path on success
- *
- * Note: Requests storage permission on Android 9 and below
  */
 export async function downloadPayslip(
   payslip: Payslip,
@@ -128,86 +159,118 @@ export async function downloadPayslip(
     }
 
     const downloadDir = getDownloadDirectory();
+    if (!downloadDir) {
+      return {
+        success: false,
+        error: 'Unable to access download directory.',
+      };
+    }
+
     const fileName = generateFileName(payslip);
     const destinationPath = `${downloadDir}/${fileName}`;
 
+    // Ensure directory exists
+    try {
+      const dirExists = await RNFS.exists(downloadDir);
+      if (!dirExists) {
+        await RNFS.mkdir(downloadDir);
+      }
+    } catch {
+      // Directory might already exist or we don't have permission - continue anyway
+    }
+
     // Replace existing file if present
-    const exists = await RNFS.exists(destinationPath);
-    if (exists) {
-      await RNFS.unlink(destinationPath);
+    try {
+      const exists = await RNFS.exists(destinationPath);
+      if (exists) {
+        await RNFS.unlink(destinationPath);
+      }
+    } catch {
+      // File might not exist or we can't check - continue anyway
     }
 
     // Copy from bundle to storage
     await copyAssetToReadableLocation(payslip.file.assetPath, destinationPath);
+
+    // Verify file was created
+    const fileCreated = await RNFS.exists(destinationPath);
+    if (!fileCreated) {
+      return {
+        success: false,
+        error: 'Failed to save file. Please try again.',
+      };
+    }
 
     return {
       success: true,
       filePath: destinationPath,
     };
   } catch (error) {
-    console.error('Download error:', error);
+    // Handle RNFS errors gracefully
+    let errorMessage = 'Failed to download payslip';
+
+    if (error instanceof Error) {
+      // Check for common Android storage errors
+      if (error.message.includes('Permission denied')) {
+        errorMessage = 'Storage permission denied. Please check app permissions.';
+      } else if (error.message.includes('No such file')) {
+        errorMessage = 'Payslip file not found in app bundle.';
+      } else if (error.message.includes('ENOSPC')) {
+        errorMessage = 'Not enough storage space on device.';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     return {
       success: false,
-      error:
-        error instanceof Error ? error.message : 'Failed to download payslip',
+      error: errorMessage,
     };
   }
 }
 
 /**
  * Copies PDF to temp location (if not already there)
- * Opens with platform-specific viewer
- * 
+ * Opens with platform-specific viewer using @react-native-documents/viewer
  */
 export async function previewPayslip(payslip: Payslip): Promise<void> {
+  const appDir = getAppDirectory();
+  const fileName = `preview_${payslip.file.name}`;
+  const tempPath = `${appDir}/${fileName}`;
+
+  // Copy if not already cached
+  const exists = await RNFS.exists(tempPath);
+  if (!exists) {
+    await copyAssetToReadableLocation(payslip.file.assetPath, tempPath);
+  }
+
   try {
-    // Prepare temp file for preview
-    const appDir = getAppDirectory();
-    const fileName = `preview_${payslip.file.name}`;
-    const tempPath = `${appDir}/${fileName}`;
-
-    // Copy if not already cached
-    const exists = await RNFS.exists(tempPath);
-    if (!exists) {
-      await copyAssetToReadableLocation(payslip.file.assetPath, tempPath);
-    }
-
-    if (Platform.OS === 'ios') {
-      await FileViewer.open(tempPath, {
-        displayName: payslip.file.name,
-        showOpenWithDialog: false,
-        showAppsSuggestions: false,
-      });
-    } else {
-      await ReactNativeBlobUtil.android.actionViewIntent(
-        tempPath,
-        'application/pdf',
-      );
-    }
+    await viewDocument({
+      uri: `file://${tempPath}`,
+      mimeType: 'application/pdf',
+    });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : '';
-    if (errorMessage !== 'User did not share' && errorMessage !== 'User cancelled') {
-      throw new Error(
-        error instanceof Error ? error.message : 'Failed to preview payslip',
-      );
+    const errorMessage = handleViewerError(error);
+    if (errorMessage) {
+      throw new Error(errorMessage);
     }
   }
 }
 
 /**
-* Opens a downloaded file
+ * Opens a downloaded file using @react-native-documents/viewer
  */
 export async function openFile(filePath: string): Promise<void> {
   try {
-    await FileViewer.open(filePath, {
-      showOpenWithDialog: false,
-      showAppsSuggestions: true,
+    await viewDocument({
+      uri: filePath.startsWith('file://') ? filePath : `file://${filePath}`,
+      mimeType: 'application/pdf',
     });
   } catch (error) {
-    console.error('Open file error:', error);
-    throw new Error(
-      error instanceof Error ? error.message : 'Failed to open file',
-    );
+    const errorMessage = handleViewerError(error);
+    if (errorMessage) {
+      throw new Error(errorMessage);
+    }
   }
 }
 

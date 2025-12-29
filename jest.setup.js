@@ -32,6 +32,7 @@ jest.mock('react-native-safe-area-context', () => ({
 jest.mock('react-native-fs', () => ({
   DocumentDirectoryPath: '/mock/documents',
   DownloadDirectoryPath: '/mock/downloads',
+  ExternalDirectoryPath: '/mock/external',
   MainBundlePath: '/mock/bundle',
   exists: jest.fn(() => Promise.resolve(false)),
   copyFile: jest.fn(() => Promise.resolve()),
@@ -39,24 +40,6 @@ jest.mock('react-native-fs', () => ({
   unlink: jest.fn(() => Promise.resolve()),
   readDir: jest.fn(() => Promise.resolve([])),
   mkdir: jest.fn(() => Promise.resolve()),
-}));
-
-// Mock react-native-file-viewer
-jest.mock('react-native-file-viewer', () => ({
-  open: jest.fn(() => Promise.resolve()),
-}));
-
-// Mock react-native-blob-util
-jest.mock('react-native-blob-util', () => ({
-  android: {
-    actionViewIntent: jest.fn(() => Promise.resolve()),
-  },
-  fs: {
-    dirs: {
-      DocumentDir: '/mock/documents',
-      DownloadDir: '/mock/downloads',
-    },
-  },
 }));
 
 // Suppress console warnings in tests
