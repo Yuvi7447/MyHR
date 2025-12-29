@@ -4,18 +4,16 @@
  */
 
 import React from 'react';
-import { StatusBar, useColorScheme } from 'react-native';
+import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { PayslipsProvider } from './src/context/PayslipsContext';
 import { RootNavigator } from './src/navigation';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={'dark-content'} />
       <PayslipsProvider>
         <RootNavigator />
       </PayslipsProvider>
