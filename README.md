@@ -101,5 +101,3 @@ React Context with `useMemo` for filtering/sorting performance
 Screenshots can be found under Snapshots folder for visual reference.
 
 
-
-**Author:** Yuvraj Desai
